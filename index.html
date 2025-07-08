@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GaiaCraft：</br>為下一代參與式經濟的投資提案 (簡報模式)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Tech Harmony -->
+    <!-- Application Structure Plan: This version is redesigned as a "Full-Screen Presentation Mode". Each <section> is a full-viewport slide (min-height: 100vh), optimized for 16:9 displays. The goal is to present information directly and impactfully without user interaction (clicks/hovers) or scrolling within a section. This structure is ideal for formal presentations where information needs to be consumed quickly and clearly, slide by slide. -->
+    <!-- Visualization & Content Choices: All interactive elements have been removed. AI engine descriptions are displayed statically. The financial chart shows all three scenarios by default. Layouts within each section have been re-architected using multi-column grids to fit all relevant information (text, charts, tables) onto a single screen, ensuring a clean, uncluttered presentation on each "slide". -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { 
+            font-family: 'Inter', 'Noto Sans TC', sans-serif; 
+            background-color: #FDFBF8; 
+            overflow-x: hidden;
+        }
+        main > section {
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 6rem 2rem 4rem 2rem; /* Adjusted padding for full-screen layout */
+            border-bottom: 1px solid #e7e5e4;
+        }
+        #hero {
+            border-bottom: none;
+        }
+        .chart-container { 
+            position: relative; 
+            width: 100%; 
+            height: 100%;
+            max-height: 350px;
+        }
+        .section-title::after { content: ''; display: block; width: 60px; height: 3px; background-color: #10B981; margin-top: 8px; }
+        .nav-link { position: relative; transition: color 0.3s; }
+        .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 50%; transform: translateX(-50%); background-color: #10B981; transition: width 0.3s; }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+
+        .section {
+    height: 100vh;
+    aspect-ratio: 16/9;
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    transform: none;
+    transition: none;
+}
+.card-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-hover:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+.light-bg {
+    background: #f8f9fa;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: #333;
+}
+
+.solution-demo {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+    margin-top: 3rem;
+}
+
+.demo-phone {
+    flex: 1;
+    max-width: 300px;
+    background: #333;
+    border-radius: 30px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.phone-screen {
+    background: linear-gradient(45deg, #1c6d04, #08887b);
+    border-radius: 20px;
+    height: 500px;
+    position: relative;
+    overflow: hidden;
+}
+
+.app-interface {
+    padding: 2rem;
+    color: white;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.task-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.solution-content {
+    flex: 1;
+}
+
+.feature-list {
+    list-style: none;
+    margin-top: 2rem;
+}
+
+.feature-list li {
+    padding: 0.5rem 0;
+    position: relative;
+    padding-left: 2rem;
+}
+
+.feature-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #64ffda;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .solution-demo {
+        flex-direction: column;
+    }
+}
+.bg-amber-50\/50 { background-color: rgba(255, 251, 235, 0.5); }
+.text-stone-800 { color: #292524; }
+.text-emerald-600 { color: #059669; }
+.bg-emerald-100 { background-color: #d1fae5; }
+.bg-amber-100 { background-color: #fef3c7; }
+.rounded-2xl { border-radius: 1rem; }
+.shadow-md { box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+.p-6 { padding: 1.5rem; }
+.mt-4 { margin-top: 1rem; }
+.mt-6 { margin-top: 1.5rem; }
+.mt-16 { margin-top: 4rem; }
+.grid { display: grid; }
+.sm\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.lg\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.gap-8 { gap: 2rem; }
+.text-center { text-align: center; }
+.font-bold { font-weight: bold; }
+.font-semibold { font-weight: 600; }
+.text-lg { font-size: 1.125rem; }
+.text-sm { font-size: 0.875rem; }
+.max-w-7xl { max-width: 80rem; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+.px-4 { padding-left: 1rem; padding-right: 1rem; }
+.sm\:px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+.lg\:px-8 { padding-left: 2rem; padding-right: 2rem; }
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: #333;
+}
+.bg-stone-50 { background-color: #fafaf9; }
+.text-stone-800 { color: #292524; }
+.text-emerald-500 { color: #10b981; }
+.rounded-2xl { border-radius: 1rem; }
+.shadow-sm { box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); }
+.hover\:shadow-lg:hover { box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.05); }
+.transition-shadow { transition-property: box-shadow; }
+.duration-300 { transition-duration: 300ms; }
+.grid { display: grid; }
+.md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.gap-8 { gap: 2rem; }
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.lg\:flex-row { flex-direction: row; }
+.items-center { align-items: center; }
+.gap-16 { gap: 4rem; }
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.font-bold { font-weight: bold; }
+.text-2xl { font-size: 1.5rem; }
+.text-lg { font-size: 1.125rem; }
+.max-w-md { max-width: 28rem; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+.mt-16 { margin-top: 4rem; }
+.mt-20 { margin-top: 5rem; }
+.mt-6 { margin-top: 1.5rem; }
+.space-y-2 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.5rem; }
+
+.solution-content h3, .solution-content p {
+    font-size: 1.5rem;
+    line-height: 2.2rem;
+    margin-bottom: 1.5rem;
+}
+.solution-content ul.feature-list {
+    margin-top: 2rem;
+    font-size: 1.25rem;
+    line-height: 2.2rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+.solution-content ul.feature-list li {
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: flex-start;
+    font-size: 1.25rem;
+}
+.solution-content ul.feature-list li span {
+    font-size: 1.5rem;
+    margin-right: 0.8rem;
+    line-height: 2.2rem;
+}
+
+.subscription-glow {
+    border-color: #6ee7b7 !important;
+    box-shadow: 0 0 24px #6ee7b7, 0 4px 24px rgba(16, 185, 129, 0.15), 0 1.5px 6px rgba(16, 185, 129, 0.10);
+}
+.subscription-glow .glow-badge {
+    background: #6ee7b7 !important;
+    color: #065f46 !important;
+    box-shadow: 0 0 12px #6ee7b7;
+}
+.subscription-glow .glow-title {
+    color: #059669 !important;
+    text-shadow: 0 0 8px #6ee7b7;
+}
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800 antialiased">
+
+    <nav id="navbar" class="bg-stone-50/80 backdrop-blur-lg fixed top-0 left-0 right-0 z-50 shadow-sm transition-all duration-300">
+        <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <span class="font-bold text-2xl text-emerald-600">GaiaCraft</span>
+                </div>
+                <div class="hidden lg:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#hero" class="nav-link text-stone-600 hover:text-emerald-600 px-3 py-2 rounded-md text-sm font-medium">起點</a>
+                        <a href="#problem" class="nav-link text-stone-600 hover:text-emerald-600 px-3 py-2 rounded-md text-sm font-medium">市場機會</a>
+                        <a href="#solution" class="nav-link text-stone-600 hover:text-emerald-600 px-3 py-2 rounded-md text-sm font-medium">解決方案</a>
+                        <a href="#business" class="nav-link text-stone-600 hover:text-emerald-600 px-3 py-2 rounded-md text-sm font-medium">商業模式</a>
+                        <a href="#market" class="nav-link text-stone-600 hover:text-emerald-600 px-3 py-2 rounded-md text-sm font-medium">市場策略</a>
+                        <a href="#financials" class="nav-link text-stone-600 hover:text-emerald-600 px-3 py-2 rounded-md text-sm font-medium">財務規劃</a>
+                        <a href="#execution" class="nav-link text-stone-600 hover:text-emerald-600 px-3 py-2 rounded-md text-sm font-medium">執行藍圖</a>
+                    </div>
+                </div>
+                <div class="lg:hidden">
+                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-stone-500 hover:text-emerald-600 hover:bg-stone-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-stone-50 focus:ring-emerald-500">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="lg:hidden hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#hero" class="nav-link text-stone-600 hover:text-emerald-600 block px-3 py-2 rounded-md text-base font-medium">起點</a>
+                <a href="#problem" class="nav-link text-stone-600 hover:text-emerald-600 block px-3 py-2 rounded-md text-base font-medium">市場機會</a>
+                <a href="#solution" class="nav-link text-stone-600 hover:text-emerald-600 block px-3 py-2 rounded-md text-base font-medium">解決方案</a>
+                <a href="#business" class="nav-link text-stone-600 hover:text-emerald-600 block px-3 py-2 rounded-md text-base font-medium">商業模式</a>
+                <a href="#market" class="nav-link text-stone-600 hover:text-emerald-600 block px-3 py-2 rounded-md text-base font-medium">市場策略</a>
+                <a href="#financials" class="nav-link text-stone-600 hover:text-emerald-600 block px-3 py-2 rounded-md text-base font-medium">財務規劃</a>
+                <a href="#execution" class="nav-link text-stone-600 hover:text-emerald-600 block px-3 py-2 rounded-md text-base font-medium">執行藍圖</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section id="hero">
+            <div class="max-w-screen-xl w-full mx-auto text-center">
+                <h1 class="text-4xl md:text-6xl font-bold text-stone-800 leading-tight">
+                    <span class="text-emerald-600">GaiaCraft</span><br class="hidden md:block" />全球首創虛實整合RPG永續生態全大作
+                    
+                </h1>
+                <p class="mt-6 max-w-3xl mx-auto text-lg md:text-xl text-stone-600">
+                    每日清晨五點半，當城市還在沉睡，來自「政治大游泳隊」的我們早已躍入冰涼的水中。我們不是冷漠，而是迷失於失效的激勵；不是不想行動，而是缺乏一個系統，能讓「善意」變成「習慣」，讓「意圖」轉為「影響力」。
+                </p>
+                <p class="mt-4 max-w-3xl mx-auto text-lg md:text-xl text-stone-600 font-semibold">
+                    這，就是我們的起點。
+                </p>
+                <div class="mt-10">
+                    <a href="#problem" class="inline-block bg-emerald-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-emerald-700 transition duration-300 transform hover:scale-105 shadow-lg">
+                        探索市場機會
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="problem" class="py-20 md:py-28 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="section-title text-3xl md:text-4xl font-bold text-stone-800 inline-block">三重斷裂 : 在燃燒的世界中，一個經過驗證的世代裂縫</h2>
+                    
+                    <p class="mt-6 max-w-3xl mx-auto text-lg text-stone-600">
+                        我們發現了一個深刻的矛盾：一方面永續發展成為全球共識，另一方面Z世代卻在行動上感到前所未有的無力。這並非源於冷漠，而是源於一個清晰可見的「三重結構性裂縫」，這是我們商業機會的核心。
+                    </p>
+                </div>
+        
+                <div class="mt-16 grid md:grid-cols-3 gap-8 text-center">
+                    <div class="p-8 bg-stone-50 rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-300">
+                        <div class="text-4xl text-emerald-500 mb-4">🏛️</div>
+                        <h3 class="text-xl font-bold text-stone-800">政策與公民的斷裂</h3>
+                        <p class="mt-2 text-stone-600">政府的永續政策（如SDGs）淪為無法互動的口號，宏大願景與公民的日常微小行動之間，缺乏有效的橋樑。</p>
+                    </div>
+                    <div class="p-8 bg-stone-50 rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-300">
+                        <div class="text-4xl text-emerald-500 mb-4">🏢</div>
+                        <h3 class="text-xl font-bold text-stone-800">企業與Z世代的斷裂</h3>
+                        <p class="mt-2 text-stone-600">企業精美的ESG報告，無法引發尋求真實體驗的Z世代共鳴。企業說的是指標，而Z世代聽的是故事。</p>
+                    </div>
+                    <div class="p-8 bg-stone-50 rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-300">
+                        <div class="text-4xl text-emerald-500 mb-4">🧍</div>
+                        <h3 class="text-xl font-bold text-stone-800">意圖與行動的斷裂</h3>
+                        <p class="mt-2 text-stone-600">Z世代的環保焦慮與有效行動脫鉤。善意無處安放，因「個人行動無關緊要」的無力感而難以持續。</p>
+                    </div>
+                </div>
+        
+                <div class="mt-20 flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
+                    <div class="flex-1 text-center lg:text-left">
+                        <h3 class="text-2xl md:text-3xl font-bold text-stone-800">Z世代的永續悖論</h3>
+                        <p class="mt-4 text-lg text-stone-600">
+                            數據揭示了一個令人不安的趨勢：儘管Z世代的環保意識最強，但他們實際參與永續生活的比例卻在下降。這不是動機問題，而是「設計失能」。圖表顯示了高昂的焦慮感與實際行動之間的差距。
+                        </p>
+                        <div class="mt-6 text-left space-y-2">
+                            <p class="text-2xl font-bold text-emerald-600">62% <span class="text-lg text-stone-600 font-normal">的Z世代對氣候變遷感到焦慮</span></p>
+                            <p class="text-2xl font-bold text-amber-600">僅 68% <span class="text-lg text-stone-600 font-normal">實際參與永續生活 (從76%下降)</span></p>
+                        </div>
+                    </div>
+                    <div class="flex-1 w-full max-w-md mx-auto">
+                        <div class="chart-container h-[300px] md:h-[350px]">
+                            <canvas id="genZParadoxChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="solution">
+            <div class="max-w-screen-xl w-full mx-auto">
+                <div class="text-center">
+                    <h2 class="section-title text-3xl md:text-4xl font-bold text-stone-800 inline-block">解決方案：一種新的行動語法</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-stone-600">我們用Z世代熟悉的語言——遊戲、故事與即時回饋——來重構「參與」這件事，將善意的發酵規則化，讓永續行動成為一種內生性的文化。</p>
+                </div>
+                <div class="mt-10 grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="group p-6 bg-white rounded-2xl shadow-sm text-center border-t-4 border-emerald-500">
+                            <h3 class="text-xl font-bold text-stone-800">敘事性</h3>
+                            <p class="mt-2 text-stone-600">每個任務都是觸發個人史詩的節點，而非孤立的待辦事項。</p>
+                        </div>
+                         <div class="group p-6 bg-white rounded-2xl shadow-sm text-center border-t-4 border-emerald-500">
+                            <h3 class="text-xl font-bold text-stone-800">可視化</h3>
+                            <p class="mt-2 text-stone-600">行動的影響被即時看見，虛擬世界因你的貢獻而變得更美好。</p>
+                        </div>
+                         <div class="group p-6 bg-white rounded-2xl shadow-sm text-center border-t-4 border-emerald-500">
+                            <h3 class="text-xl font-bold text-stone-800">可升級</h3>
+                            <p class="mt-2 text-stone-600">參與是持續成長的旅程，解鎖新技能與稱號，提供長期目標。</p>
+                        </div>
+                         <div class="group p-6 bg-white rounded-2xl shadow-sm text-center border-t-4 border-emerald-500">
+                            <h3 class="text-xl font-bold text-stone-800">價值性</h3>
+                            <p class="mt-2 text-stone-600">行動數據轉化為真實價值，包含GreenCoin獎勵與社會資產。</p>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <h3 class="text-2xl font-bold text-stone-800 text-center">參與的引擎：多模態AI核心</h3>
+                        <div class="p-4 bg-white rounded-lg shadow-md">
+                            <p class="font-semibold text-emerald-700 flex items-center"><span class="text-2xl mr-3">✍️</span>敘事引擎 (GPT-4)</p>
+                            <p class="text-sm text-stone-600 ml-9">根據用戶的真實行動，動態生成獨一無二的個人故事線與NPC互動。</p>
+                        </div>
+                        <div class="p-4 bg-white rounded-lg shadow-md">
+                            <p class="font-semibold text-emerald-700 flex items-center"><span class="text-2xl mr-3">🎨</span>視覺引擎 (DALL-E)</p>
+                            <p class="text-sm text-stone-600 ml-9">當用戶完成任務後，自動生成對應的視覺變化，將抽象貢獻轉為具體成就感。</p>
+                        </div>
+                        <div class="p-4 bg-white rounded-lg shadow-md">
+                            <p class="font-semibold text-emerald-700 flex items-center"><span class="text-2xl mr-3">🗣️</span>語音引擎 (Whisper+TTS)</p>
+                            <p class="text-sm text-stone-600 ml-9">用戶能用口述回報任務，並從AI夥伴獲得溫暖的語音回饋，降低參與門檻。</p>
+                        </div>
+                        <div class="p-4 bg-white rounded-lg shadow-md">
+                            <p class="font-semibold text-emerald-700 flex items-center"><span class="text-2xl mr-3">📚</span>知識層 (LangChain+SDGs)</p>
+                            <p class="text-sm text-stone-600 ml-9">所有任務與數據皆與聯合國SDGs知識庫對應，確保內容的教育性與權威性。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="engines" class="section bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="section-title text-3xl md:text-4xl font-bold text-stone-800 inline-block mb-4">我們的敘事與技術不是裝飾，而是行動的引擎</h2>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-8">
+                    <!-- 敘事引擎 -->
+                    <div class="p-8 bg-emerald-50 border-t-4 border-emerald-400 rounded-2xl shadow-md flex flex-col items-start hover:shadow-xl transition-all duration-300">
+                        <div class="flex items-center mb-2">
+                            <span class="text-3xl mr-2">🧠</span>
+                            <span class="font-bold text-lg text-emerald-700">敘事引擎 (Narrative Engine)</span>
+                        </div>
+                        <div class="font-bold text-emerald-600 text-lg mb-2">| GPT-4</div>
+                        <ul class="ml-2 space-y-2 text-stone-700 text-base list-disc">
+                            <li>根據使用者完成的任務歷程，自動生成劇情分支與NPC互動</li>
+                            <li>每位使用者的永續之路都是一場專屬冒險，而非一樣一樣的流程圖</li>
+                        </ul>
+                    </div>
+                    <!-- 視覺引擎 -->
+                    <div class="p-8 bg-amber-50 border-t-4 border-amber-400 rounded-2xl shadow-md flex flex-col items-start hover:shadow-xl transition-all duration-300">
+                        <div class="flex items-center mb-2">
+                            <span class="text-3xl mr-2">🖼️</span>
+                            <span class="font-bold text-lg text-amber-700">視覺引擎 (Visual Engine)</span>
+                        </div>
+                        <div class="font-bold text-amber-600 text-lg mb-2">| DALL·E</div>
+                        <ul class="ml-2 space-y-2 text-stone-700 text-base list-disc">
+                            <li>用戶完成任務後，虛擬環境會從污染景觀轉變為綠意空間</li>
+                            <li>視覺變化即時呈現「行動的成效」，用畫面取代數字焦慮</li>
+                        </ul>
+                    </div>
+                    <!-- 語音引擎 -->
+                    <div class="p-8 bg-blue-50 border-t-4 border-blue-400 rounded-2xl shadow-md flex flex-col items-start hover:shadow-xl transition-all duration-300">
+                        <div class="flex items-center mb-2">
+                            <span class="text-3xl mr-2">🎤</span>
+                            <span class="font-bold text-lg text-blue-700">語音引擎 (Voice Engine)</span>
+                        </div>
+                        <div class="font-bold text-blue-600 text-lg mb-2">| Whisper + TTS</div>
+                        <ul class="ml-2 space-y-2 text-stone-700 text-base list-disc">
+                            <li>使用者可用口述方式提交任務，語音辨識自動捕捉行動</li>
+                            <li>系統也會用TTS語音回應鼓勵，提示與劇情引導</li>
+                        </ul>
+                    </div>
+                    <!-- 驗證與信任模組 -->
+                    <div class="p-8 bg-stone-50 border-t-4 border-stone-400 rounded-2xl shadow-md flex flex-col items-start hover:shadow-xl transition-all duration-300">
+                        <div class="flex items-center mb-2">
+                            <span class="text-3xl mr-2">🔒</span>
+                            <span class="font-bold text-lg text-stone-700">驗證與信任模組</span>
+                        </div>
+                        <ul class="ml-2 space-y-2 text-stone-700 text-base list-disc">
+                            <li>每筆任務數據會標記照片、GPS、時間戳記</li>
+                            <li>用戶累積「信任分數」，提升資料權重與報告可用性</li>
+                            <li>任務行為可「實證追蹤」，成為真正可用於政策與企業的社會資料</li>
+                        </ul>
+                    </div>
+                    <!-- ESG 後台模組 -->
+                    <div class="p-8 bg-emerald-100 border-t-4 border-emerald-400 rounded-2xl shadow-md flex flex-col items-start hover:shadow-xl transition-all duration-300">
+                        <div class="flex items-center mb-2">
+                            <span class="text-3xl mr-2">📊</span>
+                            <span class="font-bold text-lg text-emerald-700">ESG 後台模組</span>
+                        </div>
+                        <div class="font-bold text-emerald-600 text-lg mb-2">| LangChain × Firebase</div>
+                        <ul class="ml-2 space-y-2 text-stone-700 text-base list-disc">
+                            <li>使用者的行動資料會被即時轉譯成ESG報告草稿</li>
+                            <li>企業可自訂任務與品牌參與腳本，生成「社會參與素材庫」</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="narrative-design" class="section bg-amber-50/50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="section-title text-3xl md:text-4xl font-bold text-stone-800 inline-block mb-4">我們想打造一座橋：<span class="text-emerald-600">從焦慮到參與，從行動到連結</span></h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-stone-600 font-medium">我們不是在解決一個App使用率的問題，而是在設計一種新的結構語法</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+                    <div class="p-8 bg-white border-t-4 border-emerald-400 rounded-2xl shadow-md flex flex-col items-center text-center hover:shadow-xl transition-all duration-300">
+                        <div class="text-4xl mb-2">🤝</div>
+                        <div class="font-bold text-lg text-emerald-700 mb-1">善意能留下</div>
+                        <div class="text-stone-700 text-base">行動被敘事，努力產生連結</div>
+                    </div>
+                    <div class="p-8 bg-white border-t-4 border-amber-400 rounded-2xl shadow-md flex flex-col items-center text-center hover:shadow-xl transition-all duration-300">
+                        <div class="text-4xl mb-2">🎲</div>
+                        <div class="font-bold text-lg text-amber-700 mb-1">參與像「玩」</div>
+                        <div class="text-stone-700 text-base">Z世代覺得參與是「玩」，不是「填」</div>
+                    </div>
+                    <div class="p-8 bg-white border-t-4 border-blue-400 rounded-2xl shadow-md flex flex-col items-center text-center hover:shadow-xl transition-all duration-300">
+                        <div class="text-4xl mb-2">🏢</div>
+                        <div class="font-bold text-lg text-blue-700 mb-1">品牌共建</div>
+                        <div class="text-stone-700 text-base">企業看到年輕人回應不只是按讚，而是共建ESG旅程</div>
+                    </div>
+                    <div class="p-8 bg-white border-t-4 border-stone-400 rounded-2xl shadow-md flex flex-col items-center text-center hover:shadow-xl transition-all duration-300">
+                        <div class="text-4xl mb-2">📖</div>
+                        <div class="font-bold text-lg text-stone-700 mb-1">政策成為故事</div>
+                        <div class="text-stone-700 text-base">政策被記得的，不是公告，而是故事</div>
+                    </div>
+                </div>
+                <div class="mt-8 text-center">
+                    <blockquote class="italic text-xl md:text-2xl font-bold text-emerald-700 border-l-4 border-emerald-400 pl-6 max-w-3xl mx-auto bg-white py-6 rounded-xl shadow-md">
+                        ❝ GaiaCraft的誕生，正是為了填補這三道裂縫，用一套新的結構語法，重建我們與這個世界的連結方式。❞
+                    </blockquote>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Screen 10: Business Model -->
+<section id="screen10" class="section">
+    <div class="container mx-auto px-6 lg:px-8 text-center">
+        <h2 class="text-5xl lg:text-6xl font-bold text-gray-800 mb-6">完整收費模式</h2>
+        <p class="text-2xl text-gray-600 mb-16 font-light">B2B2C價值閉環，創造永續商業生態。</p>
+        <div class="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto items-center">
+            <div class="border border-gray-200 rounded-xl p-10 text-left shadow-lg card-hover h-full">
+                <h3 class="text-3xl font-bold mb-4">Freemium 基礎版</h3>
+                <p class="text-5xl font-bold mb-6">免費</p>
+                <p class="text-lg text-gray-600 mb-6">適合中小企業體驗用戶互動與品牌曝光。</p>
+                <ul class="space-y-3 text-lg text-gray-600">
+                    <li>✓ 上架少量任務</li>
+                    <li>✓ 基礎品牌曝光</li>
+                </ul>
+            </div>
+            <div class="border-2 rounded-xl p-10 text-left shadow-2xl relative card-hover scale-105 subscription-glow">
+                <div class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 glow-badge text-md font-bold px-4 py-1 rounded-full">最受歡迎</div>
+                <h3 class="text-3xl font-bold mb-4 glow-title">Subscription 進階版</h3>
+                <p class="text-5xl font-bold mb-6">NT$10萬<span class="text-xl font-normal">/年</span></p>
+                <p class="text-lg text-gray-600 mb-6">為成長中企業提供完整的數據與報告工具。</p>
+                <ul class="space-y-3 text-lg text-gray-600">
+                    <li>✓ 自訂任務</li>
+                    <li>✓ 參與數據分析</li>
+                    <li>✓ 產出ESG報告</li>
+                </ul>
+            </div>
+            <div class="border border-gray-200 rounded-xl p-10 text-left shadow-lg card-hover h-full">
+                <h3 class="text-3xl font-bold mb-4">Premium 旗艦版</h3>
+                <p class="text-5xl font-bold mb-6">NT$30萬<span class="text-xl font-normal">/年 起</span></p>
+                <p class="text-lg text-gray-600 mb-6">提供深度品牌整合與客製化敘事服務。</p>
+                <ul class="space-y-3 text-lg text-gray-600">
+                    <li>✓ 品牌故事線整合</li>
+                    <li>✓ KOL任務共創</li>
+                    <li>✓ 企業專屬版App</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="solution" class="light-bg">
+    <div class="container">
+        <h2 class="text-5xl lg:text-6xl font-bold text-gray-800 mb-6 text-center">GaiaCraft 解決方案</h2>
+        <div class="solution-demo">
+            <div class="demo-phone">
+                <div class="phone-screen">
+                    <div class="app-interface">
+                        <div>
+                            <h3>永續任務</h3>
+                            <div class="task-card">
+                                <h4>🌊 淨灘冒險</h4>
+                                <p>完成後解鎖「潮間帶遺跡」</p>
+                            </div>
+                            <div class="task-card">
+                                <h4>🚌 綠色通勤</h4>
+                                <p>獲得 50 GreenCoin</p>
+                            </div>
+                            <div class="task-card">
+                                <h4>♻️ 減塑挑戰</h4>
+                                <p>改變市場街的命運</p>
+                            </div>
+                        </div>
+                        <div>
+                            <p>GreenCoin: 1,250 💰</p>
+                            <p>等級: 城市守護者 🏆</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="solution-content">
+                <h3>用遊戲語言重新設計永續參與</h3>
+                <p>GaiaCraft 不只是一個 App，而是一套讓「善意」變成「習慣」、讓「參與」變成「故事」的操作系統。</p>
+                <ul class="feature-list">
+                    <li>🎮 遊戲化任務系統：每個永續行動都是劇情節點</li>
+                    <li>🤖 AI 敘事引擎：GPT-4 生成個人專屬冒險故事</li>
+                    <li>🎨 視覺化回饋：DALL·E 建構隨行動變化的虛擬世界</li>
+                    <li>🎙️ 語音互動：Whisper + TTS 創造沉浸式體驗</li>
+                    <li>📊 ESG 報告自動生成：行動數據轉化為企業價值</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+        <section id="market">
+            <div class="max-w-screen-xl w-full mx-auto">
+                <div class="text-center">
+                    <h2 class="section-title text-3xl md:text-4xl font-bold text-stone-800 inline-block">市場策略與競爭定位</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-stone-600">我們的策略是從核心場景切入，透過與關鍵機構建立戰略聯盟，深度嵌入產業生態系，建立難以撼動的市場地位。</p>
+                </div>
+                <div class="mt-8 grid lg:grid-cols-2 gap-12 items-start">
+                    <div class="overflow-x-auto">
+                        <h3 class="text-2xl font-bold text-stone-800 text-center mb-4">競爭格局分析</h3>
+                        <table class="w-full bg-white border border-stone-200 rounded-lg shadow-md text-sm">
+                            <thead class="bg-stone-100">
+                                <tr>
+                                    <th class="p-3 text-left font-semibold text-stone-600">競爭者</th>
+                                    <th class="p-3 text-left font-semibold text-stone-600">核心功能</th>
+                                    <th class="p-3 text-left font-semibold text-stone-600">主要弱點</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-stone-200">
+                                <tr class="hover:bg-stone-50">
+                                    <td class="p-3 font-bold text-stone-800">MyClimate</td>
+                                    <td class="p-3 text-stone-700">碳足跡計算與碳補償</td>
+                                    <td class="p-3 text-amber-700">缺乏持續性互動。</td>
+                                </tr>
+                                <tr class="hover:bg-stone-50">
+                                    <td class="p-3 font-bold text-stone-800">Forest App</td>
+                                    <td class="p-3 text-stone-700">生產力/專注計時器</td>
+                                    <td class="p-3 text-amber-700">專注於「不作為」。</td>
+                                </tr>
+                                <tr class="hover:bg-stone-50">
+                                    <td class="p-3 font-bold text-stone-800">RecycleBank</td>
+                                    <td class="p-3 text-stone-700">回收行為獎勵</td>
+                                    <td class="p-3 text-amber-700">僅限於「回收」單一行為。</td>
+                                </tr>
+                                <tr class="bg-emerald-500 text-white">
+                                    <td class="p-3 font-bold">GaiaCraft</td>
+                                    <td class="p-3 font-semibold">遊戲化永續行動引擎</td>
+                                    <td class="p-3 font-semibold">整合真實行動、敘事與B2B價值。</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-stone-800 text-center mb-4">市場推廣與戰略聯盟</h3>
+                        <div class="grid grid-cols-1 gap-4">
+                            <div class="p-4 bg-white rounded-xl shadow-md">
+                                <h4 class="font-bold text-lg text-emerald-700">病毒式傳播</h4>
+                                <p class="mt-1 text-sm text-stone-600">好友邀請獎勵、團隊史詩任務、榮譽排行榜。</p>
+                            </div>
+                            <div class="p-4 bg-white rounded-xl shadow-md">
+                                <h4 class="font-bold text-lg text-emerald-700">社群行銷</h4>
+                                <p class="mt-1 text-sm text-stone-600">內容驅動 (TikTok/IG)、KOL聯動推廣、線上線下活動。</p>
+                            </div>
+                            <div class="p-4 bg-white rounded-xl shadow-md">
+                                <h4 class="font-bold text-lg text-emerald-700">戰略聯盟</h4>
+                                <p class="mt-1 text-sm text-stone-600">政府機構對接 (教育部/青年署)、指標性綠色品牌合作、在地商家網絡。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="financials">
+            <div class="max-w-screen-xl w-full mx-auto">
+                <div class="text-center">
+                    <h2 class="section-title text-3xl md:text-4xl font-bold text-stone-800 inline-block">財務規劃與預期效益</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-stone-600">我們的財務哲學是「可持續增長」，而非燒錢擴張。我們制定了務實、保守、樂觀三種情境預測，並對資金運用與風險有清晰的規劃。</p>
+                </div>
+                <div class="mt-8 grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h3 class="text-xl font-bold text-center text-stone-800 mb-2">五年營收預測 (三情境)</h3>
+                        <div class="chart-container h-[280px] max-h-[280px]">
+                            <canvas id="financialsChart"></canvas>
+                        </div>
+                        <div class="mt-4 p-4 bg-stone-100 rounded-xl">
+                            <h4 class="font-bold text-lg text-emerald-700 mb-2">風險分析與應對機制</h4>
+                            <p class="text-xs text-stone-600"><strong class="text-stone-800">市場風險：</strong>若B2B採用慢，將轉向教育授權與政府專案合作。<br><strong class="text-stone-800">技術風險：</strong>透過演算法優化與混合模型使用，有效控制AI API成本。<br><strong class="text-stone-800">參與度風險：</strong>在校園驗證期大量A/B測試，找到最佳化用戶留存的黃金公式。</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-center text-stone-800 mb-2">初期資金運用 (種子輪)</h3>
+                        <div class="chart-container h-[280px] max-h-[280px]">
+                            <canvas id="fundingChart"></canvas>
+                        </div>
+                        <div class="mt-4 overflow-x-auto">
+                             <table class="w-full bg-white border border-stone-200 rounded-lg shadow-md text-xs">
+                                <thead class="bg-stone-100">
+                                    <tr>
+                                        <th class="p-2 text-left font-semibold text-stone-600">指標 (單位:萬)</th>
+                                        <th class="p-2 text-center font-semibold text-stone-600">Y1</th>
+                                        <th class="p-2 text-center font-semibold text-stone-600">Y3</th>
+                                        <th class="p-2 text-center font-semibold text-stone-600">Y5</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-stone-200">
+                                    <tr class="bg-emerald-50"><td class="p-2 font-semibold text-emerald-800">務實淨利</td><td class="p-2 text-center">+5</td><td class="p-2 text-center">+2,400</td><td class="p-2 text-center">+18,000</td></tr>
+                                    <tr class="bg-amber-50"><td class="p-2 font-semibold text-amber-800">保守淨利</td><td class="p-2 text-center text-red-600">-25</td><td class="p-2 text-center">+180</td><td class="p-2 text-center">+1,300</td></tr>
+                                    <tr class="bg-blue-50"><td class="p-2 font-semibold text-blue-800">樂觀淨利</td><td class="p-2 text-center">+25</td><td class="p-2 text-center">+5,400</td><td class="p-2 text-center">+35,000</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="milestones" class="section bg-white">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="section-title text-3xl md:text-4xl font-bold text-stone-800 inline-block mb-4">三階段目標，從試煉場到改變引擎</h2>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- 校園驗證 -->
+                    <div class="p-8 bg-emerald-50 border-t-4 border-emerald-400 rounded-2xl shadow-md flex flex-col items-center text-center">
+                        <div class="text-4xl mb-2">🎓</div>
+                        <div class="font-bold text-xl text-emerald-700 mb-1">校園驗證</div>
+                        <div class="text-sm font-semibold text-emerald-600 mb-2">(2025–2026)</div>
+                        <div class="text-stone-700 text-base mb-2"><span class="font-semibold">對象：</span>大學生</div>
+                        <div class="text-stone-700 text-base"><span class="font-semibold">成果：</span>核心任務模組、500人、1000筆任務、10份ESG樣本</div>
+                    </div>
+                    <!-- 企業導入 -->
+                    <div class="p-8 bg-amber-50 border-t-4 border-amber-400 rounded-2xl shadow-md flex flex-col items-center text-center">
+                        <div class="text-4xl mb-2">🏢</div>
+                        <div class="font-bold text-xl text-amber-700 mb-1">企業導入</div>
+                        <div class="text-sm font-semibold text-amber-600 mb-2">(2026–2027)</div>
+                        <div class="text-stone-700 text-base mb-2"><span class="font-semibold">對象：</span>中小企業</div>
+                        <div class="text-stone-700 text-base"><span class="font-semibold">成果：</span>導入50家，報告成本降80%，建立資料庫與合作模型</div>
+                    </div>
+                    <!-- 亞洲擴散 -->
+                    <div class="p-8 bg-blue-50 border-t-4 border-blue-400 rounded-2xl shadow-md flex flex-col items-center text-center">
+                        <div class="text-4xl mb-2">🌏</div>
+                        <div class="font-bold text-xl text-blue-700 mb-1">亞洲擴散</div>
+                        <div class="text-sm font-semibold text-blue-600 mb-2">(2028–2030)</div>
+                        <div class="text-stone-700 text-base mb-2"><span class="font-semibold">對象：</span>政府／企業／青年組織</div>
+                        <div class="text-stone-700 text-base"><span class="font-semibold">成果：</span>API與任務模組授權，成為新標準</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="execution">
+            <div class="max-w-screen-xl w-full mx-auto">
+                <div class="text-center">
+                    <h2 class="section-title text-3xl md:text-4xl font-bold text-stone-800 inline-block">執行藍圖與預期影響</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-stone-600">一個卓越的理念需要一個卓越的團隊來執行。我們不僅有清晰的藍圖，更有經過驗證的技術實力與一份權責分明、時程緊湊的執行計畫。</p>
+                </div>
+                <div class="mt-8 grid lg:grid-cols-3 gap-8 items-start">
+                    <div class="lg:col-span-1 space-y-4">
+                        <h3 class="text-2xl font-bold text-stone-800 text-center mb-2">創始團隊</h3>
+                        <div class="text-center p-3 bg-white rounded-xl shadow-md">
+                            <h4 class="text-base font-bold text-stone-800">何則文</h4>
+                            <p class="text-xs text-emerald-600 font-semibold">敘事架構設計師</p>
+                        </div>
+                        <div class="text-center p-3 bg-white rounded-xl shadow-md">
+                            <h4 class="text-base font-bold text-stone-800">方澤享</h4>
+                            <p class="text-xs text-emerald-600 font-semibold">系統後端架構師</p>
+                        </div>
+                        <div class="text-center p-3 bg-white rounded-xl shadow-md">
+                            <h4 class="text-base font-bold text-stone-800">黃柏淵</h4>
+                            <p class="text-xs text-emerald-600 font-semibold">全端技術實現者</p>
+                        </div>
+                        <div class="text-center p-3 bg-white rounded-xl shadow-md">
+                            <h4 class="text-base font-bold text-stone-800">陳為政</h4>
+                            <p class="text-xs text-emerald-600 font-semibold">互動任務設計師</p>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-2 space-y-4">
+                        <h3 class="text-2xl font-bold text-stone-800 text-center mb-2">18個月實施計畫</h3>
+                        <div class="w-full bg-white p-4 rounded-lg shadow-lg text-sm">
+                            <div class="space-y-3">
+                                <div class="flex items-center"><p class="w-1/4 font-semibold text-stone-700">MVP上線</p><div class="w-3/4 bg-stone-200 h-3"><div class="bg-emerald-500 h-3" style="width: 20%"></div></div></div>
+                                <div class="flex items-center"><p class="w-1/4 font-semibold text-stone-700">校園實證</p><div class="w-3/4 bg-stone-200 h-3"><div class="bg-emerald-500 h-3" style="margin-left:20%; width: 30%"></div></div></div>
+                                <div class="flex items-center"><p class="w-1/4 font-semibold text-stone-700">B2B開發</p><div class="w-3/4 bg-stone-200 h-3"><div class="bg-emerald-500 h-3" style="margin-left:50%; width: 25%"></div></div></div>
+                                <div class="flex items-center"><p class="w-1/4 font-semibold text-stone-700">企業導入</p><div class="w-3/4 bg-stone-200 h-3"><div class="bg-emerald-500 h-3" style="margin-left:75%; width: 25%"></div></div></div>
+                            </div>
+                            <div class="mt-2 text-xs text-stone-500 flex justify-between"><span>M1</span><span>M6</span><span>M12</span><span>M18</span></div>
+                        </div>
+                        <h3 class="text-2xl font-bold text-stone-800 text-center mt-6 mb-2">預期影響力</h3>
+                        <div class="grid grid-cols-3 gap-4 text-center">
+                            <div class="p-4 bg-white rounded-2xl shadow-lg">
+                                <div class="text-3xl text-emerald-500 mb-1">🌳</div>
+                                <h4 class="text-base font-bold text-stone-800">環境效益</h4>
+                                <p class="mt-1 text-xs text-stone-600">年減碳20萬噸</p>
+                            </div>
+                            <div class="p-4 bg-white rounded-2xl shadow-lg">
+                                <div class="text-3xl text-amber-500 mb-1">💰</div>
+                                <h4 class="text-base font-bold text-stone-800">經濟效益</h4>
+                                <p class="mt-1 text-xs text-stone-600">ESG成本降80%</p>
+                            </div>
+                            <div class="p-4 bg-white rounded-2xl shadow-lg">
+                                <div class="text-3xl text-blue-500 mb-1">👥</div>
+                                <h4 class="text-base font-bold text-stone-800">社會效益</h4>
+                                <p class="mt-1 text-xs text-stone-600">建立公民行為資料庫</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="team" class="py-20 md:py-28 bg-amber-50/50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="section-title text-3xl md:text-4xl font-bold text-stone-800 inline-block">創始團隊：泳者的紀律，建構者的視野</h2>
+                    <p class="mt-6 max-w-3xl mx-auto text-lg text-stone-600">我們的團隊自稱「政治大游泳隊」，這不僅是背景，更是一種精神：每日在池水中淬煉出的紀律、耐力與協作，是我們從事高強度創業最寶貴的精神資產。</p>
+                </div>
+        
+                <div class="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="text-center p-6 bg-white rounded-2xl shadow-md">
+                        <div class="w-24 h-24 rounded-full mx-auto bg-emerald-100 flex items-center justify-center text-3xl">👨‍🎨</div>
+                        <h4 class="mt-4 text-lg font-bold text-stone-800">何則文</h4>
+                        <p class="text-sm text-emerald-600 font-semibold">敘事架構設計師</p>
+                        <p class="mt-2 text-sm text-stone-600">負責世界觀建構、任務文化轉譯與品牌語言設計。</p>
+                    </div>
+                    <div class="text-center p-6 bg-white rounded-2xl shadow-md">
+                        <div class="w-24 h-24 rounded-full mx-auto bg-amber-100 flex items-center justify-center text-3xl">🗃️</div>
+                        <h4 class="mt-4 text-lg font-bold text-stone-800">方澤享</h4>
+                        <p class="text-sm text-emerald-600 font-semibold">系統後端架構師</p>
+                        <p class="mt-2 text-sm text-stone-600">負責Firebase後台、數據管理與API架構。</p>
+                    </div>
+                    <div class="text-center p-6 bg-white rounded-2xl shadow-md">
+                        <div class="w-24 h-24 rounded-full mx-auto bg-emerald-100 flex items-center justify-center text-3xl">💻</div>
+                        <h4 class="mt-4 text-lg font-bold text-stone-800">黃柏淵</h4>
+                        <p class="text-sm text-emerald-600 font-semibold">全端技術實現者</p>
+                        <p class="mt-2 text-sm text-stone-600">負責Flutter App開發、AI串接與前後端整合。</p>
+                    </div>
+                    <div class="text-center p-6 bg-white rounded-2xl shadow-md">
+                        <div class="w-24 h-24 rounded-full mx-auto bg-amber-100 flex items-center justify-center text-3xl">🎯</div>
+                        <h4 class="mt-4 text-lg font-bold text-stone-800">陳為政</h4>
+                        <p class="text-sm text-emerald-600 font-semibold">互動任務設計師</p>
+                        <p class="mt-2 text-sm text-stone-600">負責將SDGs目標轉化為有趣的遊戲化任務。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="team-roles" class="section bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="section-title text-3xl md:text-4xl font-bold text-stone-800 inline-block mb-4">創始團隊：泳者的紀律，建構者的視野</h2>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+                    <!-- 何則文 -->
+                    <div class="p-8 bg-emerald-50 border-t-4 border-emerald-400 rounded-2xl shadow-md flex flex-col items-center text-center hover:shadow-xl transition-all duration-300">
+                        <div class="w-20 h-20 rounded-full bg-emerald-100 flex items-center justify-center text-4xl mb-3">👨‍🎨</div>
+                        <div class="font-bold text-lg text-emerald-700 mb-1">何則文</div>
+                        <div class="text-sm text-stone-600 mb-1">日本語文學系<br>創新創造力學程</div>
+                        <div class="font-semibold text-emerald-600 text-sm mb-2">敘事架構設計師</div>
+                        <div class="text-stone-700 text-base text-left mt-2">負責整體世界觀建構、任務文化轉譯與品牌語言設計，確保內容與Z世代共鳴。</div>
+                    </div>
+                    <!-- 方澤享 -->
+                    <div class="p-8 bg-amber-50 border-t-4 border-amber-400 rounded-2xl shadow-md flex flex-col items-center text-center hover:shadow-xl transition-all duration-300">
+                        <div class="w-20 h-20 rounded-full bg-amber-100 flex items-center justify-center text-4xl mb-3">🗃️</div>
+                        <div class="font-bold text-lg text-amber-700 mb-1">方澤享</div>
+                        <div class="text-sm text-stone-600 mb-1">資訊管理學系</div>
+                        <div class="font-semibold text-amber-600 text-sm mb-2">系統後端架構師</div>
+                        <div class="text-stone-700 text-base text-left mt-2">負責Firebase後台資料庫、任務模組、用戶數據管理，建立穩定而可擴展的數據結構。</div>
+                    </div>
+                    <!-- 黃柏淵 -->
+                    <div class="p-8 bg-emerald-50 border-t-4 border-emerald-400 rounded-2xl shadow-md flex flex-col items-center text-center hover:shadow-xl transition-all duration-300">
+                        <div class="w-20 h-20 rounded-full bg-emerald-100 flex items-center justify-center text-4xl mb-3">💻</div>
+                        <div class="font-bold text-lg text-emerald-700 mb-1">黃柏淵</div>
+                        <div class="text-sm text-stone-600 mb-1">資訊科學系</div>
+                        <div class="font-semibold text-emerald-600 text-sm mb-2">全端技術實現者</div>
+                        <div class="text-stone-700 text-base text-left mt-2">負責Flutter跨平台App、AI API 串接、前後端整合與UI/UX優化。</div>
+                    </div>
+                    <!-- 陳為政 -->
+                    <div class="p-8 bg-amber-50 border-t-4 border-amber-400 rounded-2xl shadow-md flex flex-col items-center text-center hover:shadow-xl transition-all duration-300">
+                        <div class="w-20 h-20 rounded-full bg-amber-100 flex items-center justify-center text-4xl mb-3">🎯</div>
+                        <div class="font-bold text-lg text-amber-700 mb-1">陳為政</div>
+                        <div class="text-sm text-stone-600 mb-1">教育學系<br>AI應用學程</div>
+                        <div class="font-semibold text-amber-600 text-sm mb-2">互動任務設計師</div>
+                        <div class="text-stone-700 text-base text-left mt-2">負責將SDGs目標轉化為遊戲任務，設計用戶行為獎勵與學習引導機制。</div>
+                    </div>
+                </div>
+                <div class="mt-8 text-center max-w-3xl mx-auto">
+                    <div class="p-6 bg-white rounded-xl shadow-md border-l-4 border-emerald-400 text-stone-700 text-base">
+                        <span class="font-bold text-emerald-700">我們的分工並非紙上談兵，而是早已落地執行。</span><br>
+                        2025年6月，我們已完成 GreenCoin 運作模組原型，搭配 HTML5 的 AR 任務展示，並成功進行小規模使用者測試，驗證任務完成率與互動流程穩定性。
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="b2b2c-loop" class="section bg-white">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-10">
+                    <h2 class="section-title text-3xl md:text-4xl font-bold text-stone-800 inline-block mb-4">B2B2C閉環設計：讓參與、資料與報告形成正向流動</h2>
+                    <p class="mt-2 text-lg text-stone-600">我們不是單向提供平台，而是建立一個用戶參與 × 品牌贊助 × 數據再生的三方閉環：</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8 mb-8">
+                    <!-- 使用者 -->
+                    <div class="p-8 bg-emerald-50 border-t-4 border-emerald-400 rounded-2xl shadow-md flex flex-col items-center text-center">
+                        <div class="text-4xl mb-2">🧑‍💻</div>
+                        <div class="font-bold text-lg text-emerald-700 mb-1">使用者</div>
+                        <div class="text-stone-700 text-base mb-2">完成任務 → 累積線索與故事</div>
+                        <div class="text-emerald-600 font-semibold mb-2">回收價值：</div>
+                        <ul class="text-stone-700 text-base list-disc text-left ml-4">
+                            <li>得到敘事、榮耀、商品、社群成就</li>
+                        </ul>
+                    </div>
+                    <!-- 企業 -->
+                    <div class="p-8 bg-amber-50 border-t-4 border-amber-400 rounded-2xl shadow-md flex flex-col items-center text-center">
+                        <div class="text-4xl mb-2">🏢</div>
+                        <div class="font-bold text-lg text-amber-700 mb-1">企業</div>
+                        <div class="text-stone-700 text-base mb-2">上架任務 → 贊助線索 → 取得報告</div>
+                        <div class="text-amber-600 font-semibold mb-2">回收價值：</div>
+                        <ul class="text-stone-700 text-base list-disc text-left ml-4">
+                            <li>建立ESG故事、品牌參與故事、顧客黏著</li>
+                        </ul>
+                    </div>
+                    <!-- 平台 -->
+                    <div class="p-8 bg-blue-50 border-t-4 border-blue-400 rounded-2xl shadow-md flex flex-col items-center text-center">
+                        <div class="text-4xl mb-2">🛠️</div>
+                        <div class="font-bold text-lg text-blue-700 mb-1">平台（我們）</div>
+                        <div class="text-stone-700 text-base mb-2">記錄任務 → 驗證數據 → 生成報告</div>
+                        <div class="text-blue-600 font-semibold mb-2">回收價值：</div>
+                        <ul class="text-stone-700 text-base list-disc text-left ml-4">
+                            <li>提供SaaS工具、收取訂閱、建立資料庫</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-6 text-center">
+                    <blockquote class="italic text-lg md:text-xl font-bold text-emerald-700 border-l-4 border-emerald-400 pl-6 max-w-2xl mx-auto bg-white py-4 rounded-xl shadow-md">
+                        ☙ 我們不是廣告平台，而是參與與資料的價值再生場域。❧
+                    </blockquote>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-stone-800 text-white py-8">
+        <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-2xl font-bold">未來是一場協作的工藝</h2>
+            <p class="mt-2 max-w-2xl mx-auto text-stone-300 text-sm">我們誠摯地邀請您，一同加入這場冒險，與我們共同將GaiaCraft打造成為一套新的行動系統。</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const chartDefaultOptions = {
+                plugins: {
+                    legend: { display: true, labels: { font: { family: "'Inter', 'Noto Sans TC', sans-serif", size: 10 }, color: '#44403c', boxWidth: 15, padding: 15 } },
+                    tooltip: {
+                        enabled: true,
+                        backgroundColor: '#1f2937',
+                        titleFont: { family: "'Inter', 'Noto Sans TC', sans-serif", size: 12, weight: 'bold' },
+                        bodyFont: { family: "'Inter', 'Noto Sans TC', sans-serif", size: 11 },
+                        padding: 8,
+                        cornerRadius: 4,
+                        displayColors: false,
+                    }
+                },
+                scales: {
+                    x: { ticks: { font: { family: "'Inter', 'Noto Sans TC', sans-serif", size: 10 }, color: '#57534e' }, grid: { display: false } },
+                    y: { ticks: { font: { family: "'Inter', 'Noto Sans TC', sans-serif", size: 10 }, color: '#57534e' }, grid: { color: '#e7e5e4' } }
+                },
+                maintainAspectRatio: false,
+                responsive: true
+            };
+
+            const genZParadoxCtx = document.getElementById('genZParadoxChart')?.getContext('2d');
+            if (genZParadoxCtx) {
+                new Chart(genZParadoxCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['感到氣候焦慮', '實際參與永續生活'],
+                        datasets: [{
+                            data: [62, 68],
+                            backgroundColor: ['#10b981', '#f59e0b'],
+                            borderColor: '#FDFBF8',
+                            borderWidth: 4
+                        }]
+                    },
+                    options: { ...chartDefaultOptions, cutout: '60%' }
+                });
+            }
+            
+            const fundingCtx = document.getElementById('fundingChart')?.getContext('2d');
+            if (fundingCtx) {
+                new Chart(fundingCtx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['AI/雲端 (25%)', '招募/獎勵 (37.5%)', '行銷 (18.75%)', '雜支 (18.75%)'],
+                        datasets: [{
+                            data: [20000, 30000, 15000, 15000],
+                            backgroundColor: ['#10b981', '#34d399', '#6ee7b7', '#a7f3d0'],
+                            borderColor: '#ffffff',
+                            borderWidth: 2,
+                        }]
+                    },
+                    options: chartDefaultOptions,
+                });
+            }
+
+            const financialsCtx = document.getElementById('financialsChart')?.getContext('2d');
+            if (financialsCtx) {
+                new Chart(financialsCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Y1', 'Y2', 'Y3', 'Y4', 'Y5'],
+                        datasets: [
+                            { label: '務實', data: [80, 200, 5000, 10000, 30000], borderColor: '#10b981', backgroundColor: '#10b98120', tension: 0.3, fill: false, borderWidth: 2 },
+                            { label: '保守', data: [50, 100, 500, 1000, 2500], borderColor: '#f59e0b', backgroundColor: '#f59e0b20', tension: 0.3, fill: false, borderWidth: 2 },
+                            { label: '樂觀', data: [100, 500, 8000, 20000, 50000], borderColor: '#3b82f6', backgroundColor: '#3b82f620', tension: 0.3, fill: false, borderWidth: 2 }
+                        ]
+                    },
+                    options: {
+                        ...chartDefaultOptions,
+                        scales: {
+                             x: { ...chartDefaultOptions.scales.x },
+                             y: { ...chartDefaultOptions.scales.y, ticks: { ...chartDefaultOptions.scales.y.ticks, callback: function(value) { if(value >= 1000) return `${value / 1000}k`; return value; } } }
+                        }
+                    }
+                });
+            }
+            
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            document.querySelectorAll('#mobile-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('main section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active', 'text-emerald-600');
+                             if(link.getAttribute('href').substring(1) === entry.target.id){
+                                link.classList.add('active', 'text-emerald-600');
+                            }
+                        });
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+
+        // 放在 <script> 裡，確保 Chart.js 已引入
+document.addEventListener('DOMContentLoaded', function () {
+    const genZParadoxCtx = document.getElementById('genZParadoxChart')?.getContext('2d');
+    if (genZParadoxCtx) {
+        new Chart(genZParadoxCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['感到氣候焦慮', '實際參與永續生活'],
+                datasets: [{
+                    data: [62, 68],
+                    backgroundColor: ['#10b981', '#f59e0b'],
+                    borderColor: '#FDFBF8',
+                    borderWidth: 4
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: { display: true, labels: { font: { family: "'Inter', 'Noto Sans TC', sans-serif", size: 10 }, color: '#44403c', boxWidth: 15, padding: 15 } },
+                    tooltip: {
+                        enabled: true,
+                        backgroundColor: '#1f2937',
+                        titleFont: { family: "'Inter', 'Noto Sans TC', sans-serif", size: 12, weight: 'bold' },
+                        bodyFont: { family: "'Inter', 'Noto Sans TC', sans-serif", size: 11 },
+                        padding: 8,
+                        cornerRadius: 4,
+                        displayColors: false,
+                    }
+                },
+                cutout: '60%',
+                maintainAspectRatio: false,
+                responsive: true
+            }
+        });
+    }
+});
+    </script>
+</body>
+</html>
